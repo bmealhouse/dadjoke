@@ -1,0 +1,40 @@
+{
+  "name": "simple-dad-joke",
+  "version": "1.0.0",
+  "description": "Simple dad joke as a service (DJaaS)",
+  "main": "index.js",
+  "author": "Brent Mealhouse <bmealhouse@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "jest": {
+    "testPathIgnorePatterns": [
+      ".cache",
+      "public"
+    ]
+  },
+  "dependencies": {
+    "axios": "0.19.2",
+    "babel-plugin-styled-components": "1.10.7",
+    "framer-motion": "1.9.1",
+    "gatsby": "2.19.45",
+    "gatsby-plugin-styled-components": "3.1.21",
+    "gatsby-plugin-typography": "2.3.25",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "react-is": "16.13.0",
+    "react-typography": "0.16.19",
+    "styled-components": "5.0.1",
+    "typeface-roboto": "0.0.75",
+    "typography": "0.16.19"
+  },
+  "devDependencies": {
+    "@types/react": "16.9.23",
+    "jest": "25.1.0",
+    "prettier": "1.19.1",
+    "typescript": "3.8.3"
+  },
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build"
+  }
+}
