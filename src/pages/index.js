@@ -19,7 +19,11 @@ export default function Page() {
   useEffect(() => {
     async function fetchDadJoke() {
       const {data} = await axios.get('https://icanhazdadjoke.com/', {
-        headers: {Accept: 'application/json'},
+        headers: {
+          Accept: 'application/json',
+          'User-Agent':
+            'simple-dad-joke.now.sh (https://github.com/bmealhouse/simple-dad-joke)',
+        },
       })
 
       setState({
