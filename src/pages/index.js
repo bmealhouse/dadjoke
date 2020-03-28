@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 import styled, {createGlobalStyle} from 'styled-components'
 import axios from 'axios'
 import parseJoke from '../utils/parse-joke'
-import octocat from '../octocat-min.png'
+import githubLogo from '../github-logo.png'
 import 'typeface-roboto'
 
 let initialRender = true
@@ -89,7 +89,7 @@ export default function Page() {
         🤦‍♂️
       </Emoji>
       <GitHubLink href="https://github.com/bmealhouse/simple-dad-joke">
-        <img src={octocat} alt="GitHub repository" />
+        <img src={githubLogo} alt="GitHub repository" />
       </GitHubLink>
     </>
   )
@@ -141,7 +141,7 @@ const Emoji = styled.span`
 
 const GitHubLink = styled.a`
   position: fixed;
-  right: -10px;
+  right: 7px;
   bottom: -25px;
   width: 75px;
   opacity: 0.5;
