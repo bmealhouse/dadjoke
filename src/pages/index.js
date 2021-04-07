@@ -1,67 +1,67 @@
-import React, {useEffect, useState} from 'react'
-import {motion} from 'framer-motion'
-import styled, {createGlobalStyle} from 'styled-components'
-import axios from 'axios'
-import parseJoke from '../utils/parse-joke'
-import githubLogo from '../github-logo.png'
-import 'typeface-roboto'
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import styled, { createGlobalStyle } from "styled-components";
+import axios from "axios";
+import parseJoke from "../utils/parse-joke";
+import githubLogo from "../github-logo.png";
+import "typeface-roboto";
 
-let initialRender = true
+let initialRender = true;
 
 const initialState = {
-  jokeText: '',
+  jokeText: "",
   punchlineText: null,
   punchlineIsVisible: false,
-}
+};
 
 export default function Page() {
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState(initialState);
 
   useEffect(() => {
     async function fetchDadJoke() {
-      const {data} = await axios.get('https://icanhazdadjoke.com/', {
+      const { data } = await axios.get("https://icanhazdadjoke.com/", {
         headers: {
-          Accept: 'application/json',
-          'User-Agent':
-            'simple-dad-joke.now.sh (https://github.com/bmealhouse/simple-dad-joke)',
+          Accept: "application/json",
+          "User-Agent":
+            "simple-dad-joke.now.sh (https://github.com/bmealhouse/simple-dad-joke)",
         },
-      })
+      });
 
       setState({
         ...parseJoke(data.joke),
         punchlineIsVisible: false,
-      })
+      });
     }
 
     if (initialRender) {
-      fetchDadJoke()
-      initialRender = false
+      fetchDadJoke();
+      initialRender = false;
     }
 
-    const clickHandler = e => {
-      if (e.type === 'keydown' && e.key !== ' ') {
-        return
+    const clickHandler = (e) => {
+      if (e.type === "keydown" && e.key !== " ") {
+        return;
       }
 
       if (state.punchlineText === null || state.punchlineIsVisible) {
-        setState(initialState)
-        fetchDadJoke()
+        setState(initialState);
+        fetchDadJoke();
       } else {
-        setState(prevState => ({
+        setState((prevState) => ({
           ...prevState,
           punchlineIsVisible: true,
-        }))
+        }));
       }
-    }
+    };
 
-    window.addEventListener('click', clickHandler)
-    window.addEventListener('keydown', clickHandler)
+    window.addEventListener("click", clickHandler);
+    window.addEventListener("keydown", clickHandler);
 
     return () => {
-      window.removeEventListener('click', clickHandler)
-      window.removeEventListener('keydown', clickHandler)
-    }
-  }, [state])
+      window.removeEventListener("click", clickHandler);
+      window.removeEventListener("keydown", clickHandler);
+    };
+  }, [state]);
 
   return (
     <>
@@ -73,10 +73,10 @@ export default function Page() {
               opacity: state.jokeText ? 1 : 0,
               y: state.jokeText ? 0 : -50,
             }}
-            transition={{duration: 0.5}}
+            transition={{ duration: 0.5 }}
             jokeTextLength={state.jokeText.length}
           >
-            {state.jokeText}{' '}
+            {state.jokeText}{" "}
             {state.punchlineText && (
               <Punchline isVisibile={state.punchlineIsVisible}>
                 {state.punchlineText}
@@ -85,14 +85,16 @@ export default function Page() {
           </motion.p>
         </Main>
       </Container>
-      <Emoji role="img" aria-label="face palm">
-        🤦‍♂️
+      <Emoji>
+        <span role="img" aria-label="face palm">
+          🤦‍♂️
+        </span>
       </Emoji>
       <GitHubLink href="https://github.com/bmealhouse/simple-dad-joke">
         <img src={githubLogo} alt="GitHub repository" />
       </GitHubLink>
     </>
-  )
+  );
 }
 
 const GlobalCss = createGlobalStyle`
@@ -106,12 +108,12 @@ const GlobalCss = createGlobalStyle`
   body {
     background-color: #2d2d2d;
   }
-`
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-`
+`;
 
 const Main = styled.main`
   display: flex;
@@ -121,23 +123,28 @@ const Main = styled.main`
   padding-right: 15vw;
   padding-left: 15vw;
   color: #fff;
-  font-size: ${props => (props.jokeTextLength > 150 ? 4 : 4.5)}vmax;
+  font-size: ${(props) => (props.jokeTextLength > 150 ? 4 : 4.5)}vmax;
   font-weight: 700;
   cursor: pointer;
-`
+`;
 
 const Punchline = styled.span`
-  background-color: rgba(255, 255, 255, ${props => (props.isVisibile ? 0 : 1)});
-`
+  background-color: rgba(
+    255,
+    255,
+    255,
+    ${(props) => (props.isVisibile ? 0 : 1)}
+  );
+`;
 
-const Emoji = styled.span`
+const Emoji = styled.div`
   position: fixed;
   font-size: 25vmax;
   line-height: 1;
   left: -75px;
   bottom: -25px;
   opacity: 0.1;
-`
+`;
 
 const GitHubLink = styled.a`
   position: fixed;
@@ -145,4 +152,4 @@ const GitHubLink = styled.a`
   bottom: -25px;
   width: 75px;
   opacity: 0.5;
-`
+`;
